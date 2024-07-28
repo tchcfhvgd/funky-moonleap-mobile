@@ -47,6 +47,7 @@
 	<assets path="assets/songs" />
 	<assets path="assets/music" preload="true" />
 	<assets path="FE-CrashDialog.exe" type="template" if="windows release" />
+	<assets path="mobile" rename="assets/mobile" if="mobile"/>
 
 	<assets path="art/icon16.png" rename="icon.png" if="linux || mac" />
 
