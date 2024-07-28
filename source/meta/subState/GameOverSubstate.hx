@@ -99,6 +99,11 @@ class GameOverSubstate extends MusicBeatSubState
 		camHUD = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
 		FlxG.cameras.add(camHUD, false);
+
+		#if android
+                addVirtualPad(NONE, A_B);
+                addVirtualPadCamera(false);
+                #end
 	}
 
 	override function update(elapsed:Float)
