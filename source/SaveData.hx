@@ -160,7 +160,7 @@ class SaveData
 			''
 		],
 		"Note Skin" => ['default', Selector, 'Choose a note skin.', ['']],
-		"Framerate Cap" => [120, Selector, 'Define your maximum FPS.', [30, 360]],
+		"Framerate Cap" => [60, Selector, 'Define your maximum FPS.', [30, 360]],
 		"Opaque Arrows" => [
 			false,
 			Checkmark,
