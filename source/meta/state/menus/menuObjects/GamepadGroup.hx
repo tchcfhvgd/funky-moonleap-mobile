@@ -7,7 +7,9 @@ import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import meta.subState.WebsiteSubState;
+#if desktop
 import meta.data.dependency.Discord;
+#end
 import meta.data.*;
 
 class GamepadGroup extends MusicBeatGroup
@@ -17,7 +19,7 @@ class GamepadGroup extends MusicBeatGroup
 		super();
 		groupName = 'gamepad';
 		
-		#if !html5
+		#if desktop
 		Discord.changePresence('CONTROLS', 'Main Menu');
 		#end
 		
