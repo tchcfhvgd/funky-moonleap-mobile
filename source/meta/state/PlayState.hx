@@ -720,7 +720,7 @@ class PlayState extends MusicBeatState
 		if (!inCutscene)
 		{
 			// pause the game if the game is allowed to pause and enter is pressed
-			if(controls.PAUSE && startedCountdown && canPause)
+			if(controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 				pauseGame();
 			
 			var pressDebug:Array<Bool> = [FlxG.keys.justPressed.SEVEN,FlxG.keys.justPressed.EIGHT];
