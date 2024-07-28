@@ -9,7 +9,9 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import meta.subState.WebsiteSubState;
+#if desktop
 import meta.data.dependency.Discord;
+#end
 import meta.state.menus.*;
 import meta.state.PlayState;
 import meta.data.*;
@@ -42,7 +44,7 @@ class FreeplayGroup extends MusicBeatGroup
 		GlobalMenuState.spawnMenu = groupName = 'freeplay';
 		
 		// foda
-		#if !html5
+		#if desktop
 		Discord.changePresence('FREEPLAY MENU', 'Main Menu');
 		#end
 		
