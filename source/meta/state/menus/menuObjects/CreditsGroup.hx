@@ -8,7 +8,9 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+#if desktop
 import meta.data.dependency.Discord;
+#end
 import meta.state.menus.*;
 import meta.subState.WebsiteSubState;
 #if windows import shaders.BrightnessShader; #end
@@ -36,7 +38,7 @@ class CreditsGroup extends MusicBeatGroup
 		super();
 		groupName = 'credits';
 		// foda
-		#if !html5
+		#if desktop
 		Discord.changePresence('CREDITS', 'Main Menu');
 		#end
 		// psych engine omg!!!
