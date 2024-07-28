@@ -61,9 +61,13 @@
 	<haxelib name="flixel-ui" />
 	<haxelib name="discord_rpc" if="DISCORD_RPC" />
 	<haxelib name="hxcpp-debug-server" if="debug" />
+	<haxelib name="extension-androidtools" if="android" />
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
+	<!--Disable deprecated warnings-->
+	<haxedef name='no-deprecation-warnings' />
+		
 	<!--Optimise inputs, be careful you will get null errors if you don't use conditionals in your game-->
 	<haxedef name="FLX_NO_TOUCH" if="desktop" />
 
@@ -83,6 +87,11 @@
 	<haxedef name="HXCPP_CHECK_POINTER" if="release" />
 	<haxedef name="HXCPP_STACK_LINE" if="release" />
 
+	
+	<section if="android">
+			<!-- Do whatever you want I'm tired uninstall and install everytime -->
+			<certificate path="key.keystore" password="psychengine" alias="psychport" alias-password="psychengine" unless="debug" />
+	</section>
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<icon path="art/icon16.png" size='16' />
