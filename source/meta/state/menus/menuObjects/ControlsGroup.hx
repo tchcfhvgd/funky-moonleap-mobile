@@ -10,7 +10,9 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import gameObjects.userInterface.menu.*;
 import meta.MusicBeat.MusicBeatSubState;
+#if desktop
 import meta.data.dependency.Discord;
+#end
 import meta.state.menus.*;
 
 using StringTools;
@@ -35,7 +37,7 @@ class ControlsGroup extends MusicBeatGroup
 		super();
 		groupName = 'controls';
 		
-		#if !html5
+		#if desktop
 		Discord.changePresence('CONTROLS', 'Main Menu');
 		#end
 		
