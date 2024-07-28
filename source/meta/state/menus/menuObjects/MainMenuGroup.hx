@@ -7,7 +7,9 @@ import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import meta.subState.WebsiteSubState;
+#if desktop
 import meta.data.dependency.Discord;
+#end
 import meta.data.*;
 
 class MainMenuGroup extends MusicBeatGroup
@@ -22,7 +24,7 @@ class MainMenuGroup extends MusicBeatGroup
 		super();
 		groupName = GlobalMenuState.spawnMenu = 'main-menu';
 		
-		#if !html5
+		#if desktop
 		Discord.changePresence('MAIN MENU', 'Main Menu');
 		#end
 		
