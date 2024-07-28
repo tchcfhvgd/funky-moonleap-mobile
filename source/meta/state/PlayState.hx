@@ -479,6 +479,11 @@ class PlayState extends MusicBeatState
 		var creditDisc = new CreditDisc(creditSong);
 		creditDisc.cameras = [strumHUD[strumHUD.length - 1]];
 		add(creditDisc);
+
+		#if mobile
+   addMobileControls(false);
+   mobileControls.visible = true;
+   #end
 	}
 	
 	// also preloads icons
