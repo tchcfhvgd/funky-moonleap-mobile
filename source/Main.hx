@@ -26,6 +26,10 @@ import openfl.events.UncaughtErrorEvent;
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
+#if android
+import android.content.Context;
+import android.os.Build;
+#end
 
 // Here we actually import the states and metadata, and just the metadata.
 // It's nice to have modularity so that we don't have ALL elements loaded at the same time.
@@ -37,7 +41,7 @@ class Main extends Sprite
 	public static var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
 
 	public static var mainClassState:Class<FlxState> = Init; // Determine the main class state of the game
-	public static var framerate:Int = 120; // How many frames per second the game should run at.
+	public static var framerate:Int = 60; // How many frames per second the game should run at.
 	
 	public static var gameVersion:String = '2.1';
 	public static var gFont:String = Paths.font('pixel-berry.ttf');
@@ -65,6 +69,11 @@ class Main extends Sprite
 	public static function main():Void
 	{
 		Lib.current.addChild(new Main());
+		#if cpp
+		cpp.NativeGc.enable(true);
+		#elseif hl
+		hl.Gc.enable(true);
+		#end
 	}
 	
 	// calls a function to set the game up
@@ -81,6 +90,15 @@ class Main extends Sprite
 
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 
+		#if android
+		if (VERSION.SDK_INT > 30)
+			Sys.setCwd(Path.addTrailingSlash(Context.getObbDir()));
+		else
+			Sys.setCwd(Path.addTrailingSlash(Context.getExternalFilesDir()));
+		#elseif ios
+		Sys.setCwd(System.documentsDirectory);
+		#end
+		
 		#if (html5 || neko)
 		framerate = 60;
 		#end
@@ -94,20 +112,6 @@ class Main extends Sprite
 		// if you've used gamemaker you'll probably understand the term surface better
 		// this defines the surface bounds
 
-		var stageWidth:Int = Lib.current.stage.stageWidth;
-		var stageHeight:Int = Lib.current.stage.stageHeight;
-
-		if (zoom == -1)
-		{
-			var ratioX:Float = stageWidth / gameWidth;
-			var ratioY:Float = stageHeight / gameHeight;
-			zoom = Math.min(ratioX, ratioY);
-			gameWidth = Math.ceil(stageWidth / zoom);
-			gameHeight = Math.ceil(stageHeight / zoom);
-			// this just kind of sets up the camera zoom in accordance to the surface width and camera zoom.
-			// if set to negative one, it is done so automatically, which is the default.
-		}
-		
 		// here we set up the base game
 		var gameCreate:FlxGame;
 		gameCreate = new FlxGame(gameWidth, gameHeight, mainClassState, #if (flixel < "5.0.0") zoom, #end framerate, framerate, skipSplash);
