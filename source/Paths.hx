@@ -81,6 +81,11 @@ class Paths
 		trace('removed $counter assets');
 		// run the garbage collector for good measure lmfao
 		System.gc();
+		#if cpp
+		cpp.NativeGc.run(true);
+		#elseif hl
+		hl.Gc.major();
+		#end
 	}
 
 	// define the locally tracked assets
@@ -117,7 +122,7 @@ class Paths
 	public static function returnGraphic(key:String, ?library:String, ?textureCompression:Bool = false)
 	{
 		var path = getPath('images/$key.png', IMAGE, library);
-		if (FileSystem.exists(path))
+		if (OpenFlAssets.exists(path))
 		{
 			if (!currentTrackedAssets.exists(key))
 			{
@@ -205,7 +210,7 @@ class Paths
 	inline static function getPreloadPath(file:String)
 	{
 		var returnPath:String = 'assets/$file';
-		if (!FileSystem.exists(returnPath))
+		if (!OpenFlAssets.exists(returnPath))
 			returnPath = CoolUtil.swapSpaceDash(returnPath);
 		return returnPath;
 	}
