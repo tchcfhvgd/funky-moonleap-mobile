@@ -13,7 +13,7 @@ import meta.data.dependency.Discord;
 #end
 import meta.state.menus.*;
 import meta.subState.WebsiteSubState;
-#if windows import shaders.BrightnessShader; #end
+import shaders.BrightnessShader;
 
 using StringTools;
 
@@ -25,7 +25,7 @@ class CreditsGroup extends MusicBeatGroup
 	static var curSelected:Int = 0;
 	
 	var curLogo:FlxSprite;
-	#if windows var logoShader:BrightnessShader; #end
+	var logoShader:BrightnessShader;
 	
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	var descTxt:FlxText;
@@ -70,8 +70,12 @@ class CreditsGroup extends MusicBeatGroup
 		descTxt.setFormat(Main.gFont, 24, FlxColor.fromRGB(181,165,240), CENTER);
 		add(descTxt);
 		
-		#if windows logoShader = new BrightnessShader(); #end
+		logoShader = new BrightnessShader();
 		reloadLogo(false);
+
+		#if android
+                addVirtualPad(LEFT_FULL, A_B);
+                #end
 	}
 	
 	var iconSin:Float = 0;
@@ -96,11 +100,11 @@ class CreditsGroup extends MusicBeatGroup
 			}
 			
 			//curLogo.alpha = 0.75 + Math.sin(FlxG.game.ticks / 400) * 0.3;
-			#if windows logoShader.value = 0.1 + Math.sin(FlxG.game.ticks / 200) * 0.6; #end
+			logoShader.value = 0.1 + Math.sin(FlxG.game.ticks / 200) * 0.6;
 		}
 		else
 		{
-			#if windows logoShader.value = 0; #end
+			logoShader.value = 0;
 			if(controls.ACCEPT)
 			{
 				FlxG.sound.play(Paths.sound('confirmMenu'));
@@ -142,7 +146,7 @@ class CreditsGroup extends MusicBeatGroup
 		curLogo.scale.set(4,4);
 		curLogo.updateHitbox();
 		curLogo.screenCenter(X);
-		#if windows curLogo.shader = logoShader.shader; #end
+		curLogo.shader = logoShader.shader;
 		add(curLogo);
 		
 		var daY:Float = (isMoonleap ? 70 : 35);
