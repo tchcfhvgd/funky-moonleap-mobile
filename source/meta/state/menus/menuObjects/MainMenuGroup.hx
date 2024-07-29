@@ -12,7 +12,7 @@ import meta.data.dependency.Discord;
 #end
 import meta.data.*;
 
-class MainMenuGroup extends MusicBeatGroup
+class MainMenuGroup extends MusicBeatState
 {
 	var optionShit:Array<String> = ["play", "credits", "buy moonleap", "options", "exit"];
 	static var curSelected:Int = 0;
