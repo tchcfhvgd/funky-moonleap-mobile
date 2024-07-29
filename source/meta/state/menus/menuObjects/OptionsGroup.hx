@@ -5,6 +5,7 @@ import flixel.FlxBasic;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
+import mobile.MobileControlSubState;
 import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
@@ -93,6 +94,11 @@ class OptionsGroup extends MusicBeatGroup
 		
 		// actually reloading it
 		changeCategory('main');
+
+		#if android
+                addVirtualPad(LEFT_FULL, A_B_C);
+                addVirtualPadCamera(false);
+                #end
 	}
 	
 	override function update(elapsed:Float)
@@ -103,6 +109,10 @@ class OptionsGroup extends MusicBeatGroup
 			changeSelection(-1, true);
 		if(controls.UI_DOWN_P)
 			changeSelection(1, true);
+		
+		if (virtualPad.buttonC.justPressed || FlxG.keys.justPressed.CONTROL && controls.mobileC) {
+			FlxG.state.openSubState(new MobileControlSubState());
+		}
 		
 		if(controls.BACK)
 		{
