@@ -53,8 +53,7 @@ class MainMenuGroup extends MusicBeatGroup
 		changeSelection();
 
 		#if android
-                addVirtualPad(UP_DOWN, A);
-                addVirtualPadCamera(false);
+                addVirtualPad(LEFT_FULL, A);
                 #end
 	}
 	
@@ -130,6 +129,9 @@ class MainMenuGroup extends MusicBeatGroup
 					case 'ost' | 'buy moonleap':
 						var link:String = (optionShit[curSelected] == 'ost') ? "https://on.soundcloud.com/ha9oz" : "https://store.steampowered.com/app/2166050/Moonleap/";
 						
+						#if mobile
+				removeVirtualPad();
+				#end
 						FlxG.state.openSubState(new WebsiteSubState(link));
 						//selectedSomething = false;
 						
@@ -139,6 +141,16 @@ class MainMenuGroup extends MusicBeatGroup
 				alive = false;
 			}
 		}
+	}
+	
+	override function closeSubState() {
+		super.closeSubState();
+		#if mobile
+		removeVirtualPad();
+		#end
+		#if android
+                addVirtualPad(LEFT_FULL, A);
+                #end
 	}
 	
 	public function changeSelection(direction:Int = 0)
