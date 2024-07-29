@@ -51,6 +51,11 @@ class MainMenuGroup extends MusicBeatGroup
 			//flixel.tweens.FlxTween.tween(menuItem, {alpha: 1}, 0.5, {ease: flixel.tweens.FlxEase.expoOut});
 		}
 		changeSelection();
+
+		#if android
+                addVirtualPad(UP_DOWN, A);
+                addVirtualPadCamera(false);
+                #end
 	}
 	
 	var selectedSomething:Bool = false;
